@@ -1,0 +1,26 @@
+{
+  "name": "@tybys/regedit",
+  "version": "0.0.0-dev",
+  "description": "Operating Windows registry using Node.js",
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "scripts": {
+    "b": "node-gyp build",
+    "test": "node ./test/index.js",
+    "build": "node-gyp rebuild"
+  },
+  "author": "toyobayashi",
+  "license": "MIT",
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toyobayashi/regedit.git"
+  },
+  "homepage": "https://github.com/toyobayashi/regedit#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "node-addon-api": "3.0.1"
+  }
+}
