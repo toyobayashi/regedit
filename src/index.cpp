@@ -159,8 +159,12 @@ static Napi::Value _queryInfoKey(const Napi::CallbackInfo& info) {
   res["maxValueNameLen"] = Napi::Number::New(env, maxValueNameLen);
   res["maxValueLen"] = Napi::Number::New(env, maxValueLen);
   res["securityDescriptor"] = Napi::Number::New(env, securityDescriptor);
+#if (NAPI_VERSION > 4)
   res["lastWriteTime"] = Napi::Date::New(env, get_time(lastWriteTime));
-
+#else
+  Napi::Function DateContructor = env.Global().Get("Date").As<Napi::Function>();
+  res["lastWriteTime"] = DateContructor.New({ Napi::Number::New(env, (double)get_time(lastWriteTime)) });
+#endif
   return res;
 }
 
