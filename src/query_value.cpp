@@ -1,31 +1,9 @@
 #include "util.hpp"
+#include "value.hpp"
 #include "api.hpp"
 #include <cstddef>
 
 namespace regedit {
-
-static inline Napi::Array createStringArray(const Napi::Env& env, const BYTE* data, DWORD cbData) {
-  Napi::Array arr = Napi::Array::New(env);
-  const wchar_t* p = (const wchar_t*)data;
-  const wchar_t* c = p;
-  uint32_t index = 0;
-  for (DWORD i = 0; i < cbData / 2 - 1; i++) {
-    if (*(p + i) == L'\0') {
-      arr.Set(index, Napi::String::New(env, w2a((wchar_t*)c)));
-      index++;
-      c = p + i + 1;
-    }
-  }
-  return arr;
-}
-
-template<typename T32>
-static inline T32 swap32(const T32& v) {
-  return (v >> 24 & 0x000000ff)
-    | ((v & 0x00ff0000) >> 8 & 0x00ffffff)
-    | ((v & 0x0000ff00) << 8)
-    | (v << 24);
-}
 
 Napi::Value _queryValue(const Napi::CallbackInfo& info) {
   size_t len = info.Length();
@@ -83,29 +61,7 @@ Napi::Value _queryValue(const Napi::CallbackInfo& info) {
 
   Napi::Object res = Napi::Object::New(env);
   res["type"] = Napi::Number::New(env, type);
-
-  switch (type) {
-    case REG_SZ:
-    case REG_EXPAND_SZ:
-    case REG_LINK:
-      res["data"] = Napi::String::New(env, w2a((wchar_t*)data));
-      break;
-    case REG_DWORD:
-      res["data"] = Napi::Number::New(env, (double)(*((uint32_t*)data)));
-      break;
-    case REG_DWORD_BIG_ENDIAN:
-      res["data"] = Napi::Number::New(env, (double)swap32(*((uint32_t*)data)));
-      break;
-    case REG_QWORD:
-      res["data"] = Napi::BigInt::New(env, *((uint64_t*)data));
-      break;
-    case REG_MULTI_SZ:
-      res["data"] = createStringArray(env, data, cbData);
-      break;
-    default:
-      res["data"] = Napi::Buffer<BYTE>::Copy(env, data, cbData);
-      break;
-  }
+  res["data"] = createData(env, type, data, cbData);
 
   delete[] data;
   return res;

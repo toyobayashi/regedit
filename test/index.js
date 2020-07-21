@@ -26,4 +26,17 @@ function testEnumKey () {
   return r
 }
 
+function testEnumValue () {
+  const hKey = addon.openKey(addon.PredefinedKeys.HKEY_LOCAL_MACHINE, 'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{3B98BA21-4079-464C-B23C-E5E19D10EADB}')
+  const info = addon.queryInfoKey(hKey)
+  console.log(info)
+  const r = []
+  for (let i = 0; i < info.values; i++) {
+    r.push(addon.enumValue(hKey, i))
+  }
+  addon.closeKey(hKey)
+  return r
+}
+
 console.log(testEnumKey())
+console.log(testEnumValue())

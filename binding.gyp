@@ -19,6 +19,8 @@
         'src/query_info_key.cpp',
         'src/query_value.cpp',
         'src/enum_key.cpp',
+        'src/enum_value.cpp',
+        'src/value.cpp',
         'src/util.cpp'
       ],
       'includes': [

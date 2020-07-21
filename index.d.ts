@@ -48,17 +48,22 @@ declare namespace regedit {
     type: ValueTypes;
   }
 
-  export interface SubKeyInfo {
+  export interface ChildKey {
     name: string;
     className: string;
     lastWriteTime: Date;
+  }
+
+  export interface ChildValue extends ValueInfo {
+    name: string;
   }
 
   export function openKey (key: HKEY, subKey?: string): HKEY;
   export function closeKey (key: HKEY): void;
   export function queryInfoKey (key: HKEY): KeyInfo;
   export function queryValue (key: HKEY, valueName?: string): ValueInfo;
-  export function enumKey (key: HKEY, index: number): SubKeyInfo;
+  export function enumKey (key: HKEY, index: number): ChildKey;
+  export function enumValue (key: HKEY, index: number): ChildValue;
 }
 
-export = regedit; 
+export = regedit;

@@ -36,12 +36,12 @@ Napi::Value _enumKey(const Napi::CallbackInfo& info) {
     return undefined;
   }
 
-  DWORD nameLen = maxSubKeyLen + 1;
-  wchar_t* name = new wchar_t[nameLen];
+  maxSubKeyLen++;
+  wchar_t* name = new wchar_t[maxSubKeyLen];
   wchar_t className[MAX_PATH] = { 0 };
   DWORD classLength = MAX_PATH;
   FILETIME lastWriteTime = { 0, 0 };
-  r = RegEnumKeyExW(hKey, dwIndex, name, &nameLen, nullptr, className, &classLength, &lastWriteTime);
+  r = RegEnumKeyExW(hKey, dwIndex, name, &maxSubKeyLen, nullptr, className, &classLength, &lastWriteTime);
 
   if (r != ERROR_SUCCESS) {
     delete[] name;
