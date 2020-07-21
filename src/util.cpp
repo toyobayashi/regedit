@@ -56,6 +56,14 @@ std::string format_message(DWORD code) {
   }
 }
 
+std::string errmsg(LSTATUS code) {
+  std::string r = format_message(code);
+  if (code == 5) {
+    r += "\nTry to run Node.js with administrator privileges.";
+  }
+  return r;
+}
+
 ULONGLONG get_time(const FILETIME& ft) {
   ULARGE_INTEGER li;
   ULONGLONG tt = 0;

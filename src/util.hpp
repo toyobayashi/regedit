@@ -13,6 +13,7 @@ namespace regedit {
 std::string w2a(const std::wstring& wstr);
 std::wstring a2w(const std::string& str);
 std::string format_message(unsigned long code);
+std::string errmsg(long code);
 unsigned long long get_time(const FILETIME& ft);
 
 }
