@@ -29,7 +29,7 @@ declare namespace regedit {
     REG_QWORD = 11
   }
 
-  type HKEY = number;
+  export type HKEY = number;
 
   export interface KeyInfo {
     className: string;
@@ -58,12 +58,19 @@ declare namespace regedit {
     name: string;
   }
 
-  export function openKey (key: HKEY, subKey?: string): HKEY;
-  export function closeKey (key: HKEY): void;
-  export function queryInfoKey (key: HKEY): KeyInfo;
-  export function queryValue (key: HKEY, valueName?: string): ValueInfo;
-  export function enumKey (key: HKEY, index: number): ChildKey;
-  export function enumValue (key: HKEY, index: number): ChildValue;
+  export interface KeyHandle {
+    getValue (): HKEY;
+    isClosed (): boolean;
+  }
+
+  export type InputKey = HKEY | KeyHandle;
+
+  export function openKey (key: InputKey, subKey?: string): KeyHandle;
+  export function closeKey (key: KeyHandle): void;
+  export function queryInfoKey (key: InputKey): KeyInfo;
+  export function queryValue (key: InputKey, valueName?: string): ValueInfo;
+  export function enumKey (key: InputKey, index: number): ChildKey;
+  export function enumValue (key: InputKey, index: number): ChildValue;
 }
 
 export = regedit;

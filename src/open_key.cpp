@@ -1,4 +1,4 @@
-#include "util.hpp"
+#include "KeyHandle.hpp"
 #include "api.hpp"
 #include <cstddef>
 
@@ -16,12 +16,16 @@ Napi::Value _openKey(const Napi::CallbackInfo& info) {
     return undefined;
   }
 
-  if (!info[0].IsNumber()) {
-    Napi::TypeError::New(env, "[openKey] typeof arguments[0] != number").ThrowAsJavaScriptException();
+  HKEY hKey;
+  if (info[0].IsNumber()) {
+    hKey = (HKEY)(ULONG_PTR)info[0].As<Napi::Number>().Int32Value();
+  } else if (info[0].IsObject() && info[0].As<Napi::Object>().InstanceOf(KeyHandle::constructor->Value())) {
+    hKey = Napi::ObjectWrap<KeyHandle>::Unwrap(info[0].As<Napi::Object>())->getHandle();
+  } else {
+    Napi::TypeError::New(env, "[openKey] typeof arguments[0] != number | KeyHandle").ThrowAsJavaScriptException();
     return undefined;
   }
 
-  HKEY hKey = (HKEY)(ULONG_PTR)info[0].As<Napi::Number>().Int32Value();
   std::wstring subKey = L"";
   const wchar_t* lpSubKey = nullptr;
 
@@ -46,7 +50,10 @@ Napi::Value _openKey(const Napi::CallbackInfo& info) {
     Napi::Error::New(env, errmsg(r)).ThrowAsJavaScriptException();
     return undefined;
   }
-  return Napi::Number::New(env, (LONG)(ULONG_PTR)result);
+
+  return KeyHandle::constructor->New({ Napi::Number::New(env, (LONG)(ULONG_PTR)result) });
+
+  // return Napi::Number::New(env, (LONG)(ULONG_PTR)result);
 }
 
 }

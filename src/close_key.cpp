@@ -1,4 +1,4 @@
-#include "util.hpp"
+#include "KeyHandle.hpp"
 #include "api.hpp"
 #include <cstddef>
 
@@ -16,16 +16,27 @@ Napi::Value _closeKey(const Napi::CallbackInfo& info) {
     return undefined;
   }
 
-  if (!info[0].IsNumber()) {
-    Napi::TypeError::New(env, "[closeKey] typeof arguments[0] != number").ThrowAsJavaScriptException();
-    return undefined;
+  /* if (info[0].IsNumber()) {
+    LSTATUS r = RegCloseKey((HKEY)(ULONG_PTR)info[0].As<Napi::Number>().Int32Value());
+    if (r != ERROR_SUCCESS) {
+      Napi::Error::New(env, errmsg(r)).ThrowAsJavaScriptException();
+      return undefined;
+    }
+  } else  */if (info[0].IsObject() && info[0].As<Napi::Object>().InstanceOf(KeyHandle::constructor->Value())) {
+    KeyHandle* h = Napi::ObjectWrap<KeyHandle>::Unwrap(info[0].As<Napi::Object>());
+
+    if (h->isOpen()) {
+      LSTATUS r = RegCloseKey(h->getHandle());
+      if (r != ERROR_SUCCESS) {
+        Napi::Error::New(env, errmsg(r)).ThrowAsJavaScriptException();
+        return undefined;
+      }
+      h->setClosed(true);
+    }
+  } else {
+    Napi::TypeError::New(env, "[closeKey] typeof arguments[0] != KeyHandle").ThrowAsJavaScriptException();
   }
 
-  HKEY hKey = (HKEY)(ULONG_PTR)info[0].As<Napi::Number>().Int32Value();
-  LSTATUS r = RegCloseKey(hKey);
-  if (r != ERROR_SUCCESS) {
-    Napi::Error::New(env, errmsg(r)).ThrowAsJavaScriptException();
-  }
   return undefined;
 }
 

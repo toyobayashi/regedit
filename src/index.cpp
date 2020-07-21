@@ -1,9 +1,10 @@
-#include "util.hpp"
+#include "KeyHandle.hpp"
 #include "api.hpp"
 
 namespace regedit {
 
 static Napi::Object _init(Napi::Env env, Napi::Object exports) {
+  KeyHandle::init(env);
   exports["openKey"] = Napi::Function::New(env, _openKey, "openKey");
   exports["closeKey"] = Napi::Function::New(env, _closeKey, "closeKey");
   exports["queryInfoKey"] = Napi::Function::New(env, _queryInfoKey, "queryInfoKey");

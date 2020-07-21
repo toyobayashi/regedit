@@ -17,11 +17,17 @@ addon.closeKey(hKey) */
 
 function testEnumKey () {
   const hKey = addon.openKey(addon.PredefinedKeys.HKEY_LOCAL_MACHINE, 'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall')
+  console.log(hKey.getValue())
   const info = addon.queryInfoKey(hKey)
   const r = []
   for (let i = 0; i < info.subKeys; i++) {
     r.push(addon.enumKey(hKey, i))
   }
+  console.log(hKey.isClosed())
+  addon.closeKey(hKey)
+  console.log(hKey.isClosed())
+  addon.closeKey(hKey)
+  addon.closeKey(hKey)
   addon.closeKey(hKey)
   return r
 }
@@ -40,3 +46,4 @@ function testEnumValue () {
 
 console.log(testEnumKey())
 console.log(testEnumValue())
+console.log(addon)

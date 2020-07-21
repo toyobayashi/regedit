@@ -20,6 +20,7 @@
         'src/query_value.cpp',
         'src/enum_key.cpp',
         'src/enum_value.cpp',
+        'src/KeyHandle.cpp',
         'src/value.cpp',
         'src/util.cpp'
       ],

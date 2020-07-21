@@ -1,4 +1,4 @@
-#include "util.hpp"
+#include "KeyHandle.hpp"
 #include "api.hpp"
 #include <cstddef>
 
@@ -16,8 +16,13 @@ Napi::Value _enumKey(const Napi::CallbackInfo& info) {
     return undefined;
   }
 
-  if (!info[0].IsNumber()) {
-    Napi::TypeError::New(env, "[enumKey] typeof arguments[0] != number").ThrowAsJavaScriptException();
+  HKEY hKey;
+  if (info[0].IsNumber()) {
+    hKey = (HKEY)(ULONG_PTR)info[0].As<Napi::Number>().Int32Value();
+  } else if (info[0].IsObject() && info[0].As<Napi::Object>().InstanceOf(KeyHandle::constructor->Value())) {
+    hKey = Napi::ObjectWrap<KeyHandle>::Unwrap(info[0].As<Napi::Object>())->getHandle();
+  } else {
+    Napi::TypeError::New(env, "[enumKey] typeof arguments[0] != number | KeyHandle").ThrowAsJavaScriptException();
     return undefined;
   }
 
@@ -26,7 +31,6 @@ Napi::Value _enumKey(const Napi::CallbackInfo& info) {
     return undefined;
   }
 
-  HKEY hKey = (HKEY)(ULONG_PTR)info[0].As<Napi::Number>().Int32Value();
   DWORD dwIndex = info[1].As<Napi::Number>().Uint32Value();
 
   DWORD maxSubKeyLen = 0;

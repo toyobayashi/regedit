@@ -1,4 +1,4 @@
-#include "util.hpp"
+#include "KeyHandle.hpp"
 #include "value.hpp"
 #include "api.hpp"
 #include <cstddef>
@@ -17,12 +17,16 @@ Napi::Value _queryValue(const Napi::CallbackInfo& info) {
     return undefined;
   }
 
-  if (!info[0].IsNumber()) {
-    Napi::TypeError::New(env, "[queryValue] typeof arguments[0] != number").ThrowAsJavaScriptException();
+  HKEY hKey;
+  if (info[0].IsNumber()) {
+    hKey = (HKEY)(ULONG_PTR)info[0].As<Napi::Number>().Int32Value();
+  } else if (info[0].IsObject() && info[0].As<Napi::Object>().InstanceOf(KeyHandle::constructor->Value())) {
+    hKey = Napi::ObjectWrap<KeyHandle>::Unwrap(info[0].As<Napi::Object>())->getHandle();
+  } else {
+    Napi::TypeError::New(env, "[queryInfoKey] typeof arguments[0] != number | KeyHandle").ThrowAsJavaScriptException();
     return undefined;
   }
 
-  HKEY hKey = (HKEY)(ULONG_PTR)info[0].As<Napi::Number>().Int32Value();
   std::wstring valueName = L"";
   const wchar_t* lpValueName = nullptr;
 
