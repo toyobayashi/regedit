@@ -12,10 +12,12 @@
       'target_name': 'regedit',
       'sources': [
         'src/index.cpp',
+        'src/value_types.cpp',
         'src/predefined_keys.cpp',
         'src/open_key.cpp',
         'src/close_key.cpp',
         'src/query_info_key.cpp',
+        'src/query_value.cpp',
         'src/util.cpp'
       ],
       'includes': [
