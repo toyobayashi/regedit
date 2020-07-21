@@ -15,6 +15,7 @@ Napi::Value _queryValue(const Napi::CallbackInfo&);
 Napi::Value _enumKey(const Napi::CallbackInfo&);
 Napi::Value _enumValue(const Napi::CallbackInfo&);
 Napi::Value _createKey(const Napi::CallbackInfo&);
+Napi::Value _deleteKey(const Napi::CallbackInfo&);
 
 }
 

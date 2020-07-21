@@ -82,6 +82,7 @@ declare namespace regedit {
   export function enumKey (key: InputKey, index: number): ChildKey;
   export function enumValue (key: InputKey, index: number): ChildValue;
   export function createKey (key: InputKey, subKey: string, className?: string): CreateKeyResult;
+  export function deleteKey (key: InputKey, subKey?: string): void;
 }
 
 export = regedit;

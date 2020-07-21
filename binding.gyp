@@ -22,6 +22,7 @@
         'src/enum_key.cpp',
         'src/enum_value.cpp',
         'src/create_key.cpp',
+        'src/delete_key.cpp',
         'src/KeyHandle.cpp',
         'src/value.cpp',
         'src/util.cpp'
