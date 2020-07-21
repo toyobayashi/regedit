@@ -44,6 +44,12 @@ function testEnumValue () {
   return r
 }
 
-console.log(testEnumKey())
-console.log(testEnumValue())
-console.log(addon)
+function testCreateKey () {
+  const { result, disposition } = addon.createKey(addon.PredefinedKeys.HKEY_LOCAL_MACHINE, 'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\MYTEST')
+  console.log(result.getValue())
+  console.log(addon.Disposition[disposition])
+}
+
+// console.log(testEnumKey())
+// console.log(testEnumValue())
+testCreateKey()

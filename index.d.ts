@@ -65,12 +65,23 @@ declare namespace regedit {
 
   export type InputKey = HKEY | KeyHandle;
 
+  export enum Disposition {
+    REG_CREATED_NEW_KEY = 1,
+    REG_OPENED_EXISTING_KEY = 2
+  }
+
+  export interface CreateKeyResult {
+    result: KeyHandle;
+    disposition: Disposition;
+  }
+
   export function openKey (key: InputKey, subKey?: string): KeyHandle;
   export function closeKey (key: KeyHandle): void;
   export function queryInfoKey (key: InputKey): KeyInfo;
   export function queryValue (key: InputKey, valueName?: string): ValueInfo;
   export function enumKey (key: InputKey, index: number): ChildKey;
   export function enumValue (key: InputKey, index: number): ChildValue;
+  export function createKey (key: InputKey, subKey: string, className?: string): CreateKeyResult;
 }
 
 export = regedit;

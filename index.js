@@ -14,5 +14,6 @@ function makeEnum (obj) {
 
 makeEnum(addon.PredefinedKeys)
 makeEnum(addon.ValueTypes)
+makeEnum(addon.Disposition)
 
 module.exports = addon
