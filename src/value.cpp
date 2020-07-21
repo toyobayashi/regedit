@@ -1,6 +1,8 @@
 #include "util.hpp"
 #include "value.hpp"
 
+#define MAX_SAFE_INTEGER 9007199254740991UL
+
 namespace regedit {
 
 Napi::Array createStringArray(const Napi::Env& env, const BYTE* data, DWORD cbData) {
@@ -29,7 +31,18 @@ Napi::Value createData(const Napi::Env& env, DWORD type, const BYTE* data, DWORD
     case REG_DWORD_BIG_ENDIAN:
       return Napi::Number::New(env, (double)swap32(*((uint32_t*)data)));
     case REG_QWORD:
+      if (*((uint64_t*)data) <= MAX_SAFE_INTEGER) {
+        return Napi::Number::New(env, (double)(*((uint64_t*)data)));
+      }
+#if NAPI_VERSION > 5
       return Napi::BigInt::New(env, *((uint64_t*)data));
+#else
+      if (env.Global().Get("BigInt").IsFunction()) {
+        return env.Global().Get("BigInt").As<Napi::Function>().Call({ Napi::String::New(env, std::to_string(*((uint64_t*)data))) });
+      }
+
+      return Napi::Buffer<BYTE>::Copy(env, data, cbData);
+#endif
     case REG_MULTI_SZ:
       return createStringArray(env, data, cbData);
     default:

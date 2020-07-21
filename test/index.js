@@ -33,7 +33,7 @@ function testEnumKey () {
 }
 
 function testEnumValue () {
-  const hKey = addon.openKey(addon.PredefinedKeys.HKEY_LOCAL_MACHINE, 'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{3B98BA21-4079-464C-B23C-E5E19D10EADB}')
+  const hKey = addon.openKey(addon.PredefinedKeys.HKEY_LOCAL_MACHINE, 'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{4483B376-B15E-47C6-ADA8-B0F2BCFB300A}')
   const info = addon.queryInfoKey(hKey)
   console.log(info)
   const r = []
@@ -50,6 +50,6 @@ function testCreateKey () {
   console.log(addon.Disposition[disposition])
 }
 
-// console.log(testEnumKey())
-// console.log(testEnumValue())
-testCreateKey()
+console.log(testEnumKey())
+console.log(testEnumValue())
+// testCreateKey()
