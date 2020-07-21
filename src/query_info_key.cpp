@@ -54,7 +54,7 @@ Napi::Value _queryInfoKey(const Napi::CallbackInfo& info) {
 
   Napi::Object res = Napi::Object::New(env);
   res["className"] = Napi::String::New(env, w2a(className));
-  res["classLength"] = Napi::Number::New(env, classLength);
+  // res["classLength"] = Napi::Number::New(env, classLength);
   res["subKeys"] = Napi::Number::New(env, subKeys);
   res["maxSubKeyLen"] = Napi::Number::New(env, maxSubKeyLen);
   res["maxClassLen"] = Napi::Number::New(env, maxClassLen);

@@ -33,7 +33,6 @@ declare namespace regedit {
 
   export interface KeyInfo {
     className: string;
-    classLength: number;
     subKeys: number;
     maxSubKeyLen: number;
     maxClassLen: number;
@@ -49,10 +48,17 @@ declare namespace regedit {
     type: ValueTypes;
   }
 
+  export interface SubKeyInfo {
+    name: string;
+    className: string;
+    lastWriteTime: Date;
+  }
+
   export function openKey (key: HKEY, subKey?: string): HKEY;
   export function closeKey (key: HKEY): void;
   export function queryInfoKey (key: HKEY): KeyInfo;
   export function queryValue (key: HKEY, valueName?: string): ValueInfo;
+  export function enumKey (key: HKEY, index: number): SubKeyInfo;
 }
 
 export = regedit; 
