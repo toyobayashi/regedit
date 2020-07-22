@@ -13,6 +13,8 @@ static Napi::Object _init(Napi::Env env, Napi::Object exports) {
   exports["enumValue"] = Napi::Function::New(env, _enumValue, "enumValue"); // RegEnumValueW
   exports["createKey"] = Napi::Function::New(env, _createKey, "createKey"); // RegCreateKeyExW
   exports["deleteKey"] = Napi::Function::New(env, _deleteKey, "deleteKey"); // RegDeleteKeyW
+  exports["setValue"] = Napi::Function::New(env, _setValue, "setValue"); // RegSetValueExW
+  exports["deleteValue"] = Napi::Function::New(env, _deleteValue, "deleteValue"); // RegDeleteValueW
   exports["PredefinedKeys"] = _predefinedKeys(env);
   exports["ValueTypes"] = _valueTypes(env);
   exports["Disposition"] = _disposition(env);

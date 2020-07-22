@@ -16,6 +16,8 @@ Napi::Value _enumKey(const Napi::CallbackInfo&);
 Napi::Value _enumValue(const Napi::CallbackInfo&);
 Napi::Value _createKey(const Napi::CallbackInfo&);
 Napi::Value _deleteKey(const Napi::CallbackInfo&);
+Napi::Value _setValue(const Napi::CallbackInfo&);
+Napi::Value _deleteValue(const Napi::CallbackInfo&);
 
 }
 
