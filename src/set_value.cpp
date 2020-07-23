@@ -223,6 +223,7 @@ Napi::Value _setValue(const Napi::CallbackInfo& info) {
         Napi::Error::New(env, "[setValue] Error value type.").ThrowAsJavaScriptException();
         return undefined;
       }
+      dwType = REG_BINARY;
     }
   }
 

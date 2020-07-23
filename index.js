@@ -29,7 +29,11 @@ function readKey (key, subKey) {
 function removeKey (key, subKey) {
   const { keys } = readKey(key, subKey)
   for (let i = 0; i < keys.length; i++) {
-    removeKey(key, path.win32.join(subKey, keys[i].name))
+    if (typeof subKey === 'string') {
+      removeKey(key, path.win32.join(subKey, keys[i].name))
+    } else {
+      removeKey(key, keys[i].name)
+    }
   }
   addon.deleteKey(key, subKey)
 }
