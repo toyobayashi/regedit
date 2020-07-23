@@ -60,10 +60,6 @@ regedit.removeKey(key)
 
 ## API
 
-``` js
-const regedit = require('@tybys/regedit')
-```
-
 ### Enums
 
 #### `regedit.PredefinedKeys`
@@ -108,7 +104,7 @@ declare enum ValueTypes {
 
 #### `regedit.Disposition`
 
-Returned by `regedit.createKey()`.
+Returned by [regedit.createKey()](#regedit.createKey).
 
 ``` ts
 declare enum Disposition {
@@ -133,11 +129,14 @@ declare type HKEY = number;
 declare type InputKey = HKEY | KeyHandle;
 ```
 
+* Type alias: [HKEY](#regedit.HKEY)
+* Interface: [KeyHandle](#regedit.KeyHandle)
+
 ### Interfaces
 
 #### `regedit.KeyHandle`
 
-Returned by `regedit.openKey()`.
+Returned by [regedit.openKey()](#regedit.openKey).
 
 ``` ts
 declare interface KeyHandle {
@@ -146,9 +145,11 @@ declare interface KeyHandle {
 }
 ```
 
+* Type alias: [HKEY](#regedit.HKEY)
+
 #### `regedit.KeyInfo`
 
-Returned by `regedit.queryInfoKey()`.
+Returned by [regedit.queryInfoKey()](#regedit.queryInfoKey).
 
 ``` ts
 declare interface KeyInfo {
@@ -166,7 +167,7 @@ declare interface KeyInfo {
 
 #### `regedit.ValueInfo`
 
-Returned by `regedit.queryValue()`.
+Returned by [regedit.queryValue()](#regedit.queryValue).
 
 ``` ts
 declare interface ValueInfo {
@@ -175,9 +176,11 @@ declare interface ValueInfo {
 }
 ```
 
+* Enum: [ValueTypes](#regedit.ValueTypes)
+
 #### `regedit.ChildKey`
 
-Returned by `regedit.enumKey()`.
+Returned by [regedit.enumKey()](#regedit.enumKey).
 
 ``` ts
 declare interface ChildKey {
@@ -189,7 +192,7 @@ declare interface ChildKey {
 
 #### `regedit.ChildValue`
 
-Returned by `regedit.enumValue()`.
+Returned by [regedit.enumValue()](#regedit.enumValue).
 
 ``` ts
 declare interface ChildValue extends ValueInfo {
@@ -197,9 +200,11 @@ declare interface ChildValue extends ValueInfo {
 }
 ```
 
+* Interface: [ValueInfo](#regedit.ValueInfo)
+
 #### `regedit.CreateKeyResult`
 
-Returned by `regedit.createKey()`.
+Returned by [regedit.createKey()](#regedit.createKey).
 
 ``` ts
 declare interface CreateKeyResult {
@@ -208,9 +213,12 @@ declare interface CreateKeyResult {
 }
 ```
 
+* Interface: [KeyHandle](#regedit.KeyHandle)
+* Enum: [Disposition](#regedit.Disposition)
+
 #### `regedit.ReadKeyResult`
 
-Returned by `regedit.readKey()`.
+Returned by [regedit.readKey()](#regedit.readKey).
 
 ``` ts
 declare interface ReadKeyResult {
@@ -219,6 +227,10 @@ declare interface ReadKeyResult {
   values: ChildValue[];
 }
 ```
+
+* Interface: [KeyInfo](#regedit.KeyInfo)
+* Interface: [ChildKey](#regedit.ChildKey)
+* Interface: [ChildValue](#regedit.ChildValue)
 
 ### Functions
 
@@ -230,6 +242,9 @@ declare interface ReadKeyResult {
 declare function openKey (key: InputKey, subKey?: string): KeyHandle;
 ```
 
+* Type alias: [InputKey](#regedit.InputKey)
+* Interface: [KeyHandle](#regedit.KeyHandle)
+
 #### `regedit.closeKey`
 
 [RegCloseKey](https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regclosekey)
@@ -237,6 +252,8 @@ declare function openKey (key: InputKey, subKey?: string): KeyHandle;
 ``` ts
 declare function closeKey (key: KeyHandle): void;
 ```
+
+* Interface: [KeyHandle](#regedit.KeyHandle)
 
 #### `regedit.queryInfoKey`
 
@@ -246,6 +263,9 @@ declare function closeKey (key: KeyHandle): void;
 declare function queryInfoKey (key: InputKey): KeyInfo;
 ```
 
+* Type alias: [InputKey](#regedit.InputKey)
+* Interface: [KeyInfo](#regedit.KeyInfo)
+
 #### `regedit.queryValue`
 
 [RegQueryValueExW](https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regqueryvalueexw)
@@ -253,6 +273,9 @@ declare function queryInfoKey (key: InputKey): KeyInfo;
 ``` ts
 declare function queryValue (key: InputKey, valueName?: string): ValueInfo;
 ```
+
+* Type alias: [InputKey](#regedit.InputKey)
+* Interface: [ValueInfo](#regedit.ValueInfo)
 
 #### `regedit.enumKey`
 
@@ -262,6 +285,9 @@ declare function queryValue (key: InputKey, valueName?: string): ValueInfo;
 declare function enumKey (key: InputKey, index: number): ChildKey;
 ```
 
+* Type alias: [InputKey](#regedit.InputKey)
+* Interface: [ChildKey](#regedit.ChildKey)
+
 #### `regedit.enumValue`
 
 [RegEnumValueW](https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regenumvaluew)
@@ -269,6 +295,9 @@ declare function enumKey (key: InputKey, index: number): ChildKey;
 ``` ts
 declare function enumValue (key: InputKey, index: number): ChildValue;
 ```
+
+* Type alias: [InputKey](#regedit.InputKey)
+* Interface: [ChildValue](#regedit.ChildValue)
 
 #### `regedit.createKey`
 
@@ -278,6 +307,9 @@ declare function enumValue (key: InputKey, index: number): ChildValue;
 declare function createKey (key: InputKey, subKey: string, className?: string): CreateKeyResult;
 ```
 
+* Type alias: [InputKey](#regedit.InputKey)
+* Interface: [CreateKeyResult](#regedit.CreateKeyResult)
+
 #### `regedit.deleteKey`
 
 [RegDeleteKeyW](https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regdeletekeyw)
@@ -285,6 +317,8 @@ declare function createKey (key: InputKey, subKey: string, className?: string): 
 ``` ts
 declare function deleteKey (key: InputKey, subKey?: string): void;
 ```
+
+* Type alias: [InputKey](#regedit.InputKey)
 
 #### `regedit.setValue`
 
@@ -294,6 +328,9 @@ declare function deleteKey (key: InputKey, subKey?: string): void;
 declare function setValue (key: InputKey, valueName: string, data?: number | bigint | string | string[] | Buffer, type?: ValueTypes): void;
 ```
 
+* Type alias: [InputKey](#regedit.InputKey)
+* Interface: [ValueTypes](#regedit.ValueTypes)
+
 #### `regedit.deleteValue`
 
 [RegDeleteValueW](https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regdeletevaluew)
@@ -301,6 +338,8 @@ declare function setValue (key: InputKey, valueName: string, data?: number | big
 ``` ts
 declare function deleteValue (key: InputKey, valueName?: string): void;
 ```
+
+* Type alias: [InputKey](#regedit.InputKey)
 
 #### `regedit.readKey`
 
@@ -310,6 +349,9 @@ Read a registry key and its child key/values.
 declare function readKey (key: InputKey, subKey?: string): ReadKeyResult;
 ```
 
+* Type alias: [InputKey](#regedit.InputKey)
+* Interface: [ReadKeyResult](#regedit.ReadKeyResult)
+
 #### `regedit.removeKey`
 
 Remove a registry key recursively.
@@ -317,3 +359,5 @@ Remove a registry key recursively.
 ``` ts
 declare function removeKey (key: InputKey, subKey?: string): void;
 ```
+
+* Type alias: [InputKey](#regedit.InputKey)
