@@ -23,7 +23,7 @@ function readKey (key, subKey) {
   for (let i = 0; i < info.values; i++) {
     values.push(addon.enumValue(hKey, i))
   }
-  return { keys, values }
+  return { info, keys, values }
 }
 
 function removeKey (key, subKey) {
