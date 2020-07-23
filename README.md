@@ -104,7 +104,7 @@ declare enum ValueTypes {
 
 #### `regedit.Disposition`
 
-Returned by [regedit.createKey()](#regedit.createKey).
+Returned by [regedit.createKey()](#regeditcreatekey).
 
 ``` ts
 declare enum Disposition {
@@ -129,14 +129,14 @@ declare type HKEY = number;
 declare type InputKey = HKEY | KeyHandle;
 ```
 
-* Type alias: [HKEY](#regedit.HKEY)
-* Interface: [KeyHandle](#regedit.KeyHandle)
+* Type alias: [HKEY](#regedithkey)
+* Interface: [KeyHandle](#regeditkeyhandle)
 
 ### Interfaces
 
 #### `regedit.KeyHandle`
 
-Returned by [regedit.openKey()](#regedit.openKey).
+Returned by [regedit.openKey()](#regeditopenkey).
 
 ``` ts
 declare interface KeyHandle {
@@ -145,11 +145,11 @@ declare interface KeyHandle {
 }
 ```
 
-* Type alias: [HKEY](#regedit.HKEY)
+* Type alias: [HKEY](#regedithkey)
 
 #### `regedit.KeyInfo`
 
-Returned by [regedit.queryInfoKey()](#regedit.queryInfoKey).
+Returned by [regedit.queryInfoKey()](#regeditqueryinfokey).
 
 ``` ts
 declare interface KeyInfo {
@@ -167,7 +167,7 @@ declare interface KeyInfo {
 
 #### `regedit.ValueInfo`
 
-Returned by [regedit.queryValue()](#regedit.queryValue).
+Returned by [regedit.queryValue()](#regeditqueryvalue).
 
 ``` ts
 declare interface ValueInfo {
@@ -176,11 +176,11 @@ declare interface ValueInfo {
 }
 ```
 
-* Enum: [ValueTypes](#regedit.ValueTypes)
+* Enum: [ValueTypes](#regeditvaluetypes)
 
 #### `regedit.ChildKey`
 
-Returned by [regedit.enumKey()](#regedit.enumKey).
+Returned by [regedit.enumKey()](#regeditenumkey).
 
 ``` ts
 declare interface ChildKey {
@@ -192,7 +192,7 @@ declare interface ChildKey {
 
 #### `regedit.ChildValue`
 
-Returned by [regedit.enumValue()](#regedit.enumValue).
+Returned by [regedit.enumValue()](#regeditenumvalue).
 
 ``` ts
 declare interface ChildValue extends ValueInfo {
@@ -200,11 +200,11 @@ declare interface ChildValue extends ValueInfo {
 }
 ```
 
-* Interface: [ValueInfo](#regedit.ValueInfo)
+* Interface: [ValueInfo](#regeditvalueinfo)
 
 #### `regedit.CreateKeyResult`
 
-Returned by [regedit.createKey()](#regedit.createKey).
+Returned by [regedit.createKey()](#regeditcreatekey).
 
 ``` ts
 declare interface CreateKeyResult {
@@ -213,12 +213,12 @@ declare interface CreateKeyResult {
 }
 ```
 
-* Interface: [KeyHandle](#regedit.KeyHandle)
-* Enum: [Disposition](#regedit.Disposition)
+* Interface: [KeyHandle](#regeditkeyhandle)
+* Enum: [Disposition](#regeditdisposition)
 
 #### `regedit.ReadKeyResult`
 
-Returned by [regedit.readKey()](#regedit.readKey).
+Returned by [regedit.readKey()](#regeditreadkey).
 
 ``` ts
 declare interface ReadKeyResult {
@@ -228,9 +228,9 @@ declare interface ReadKeyResult {
 }
 ```
 
-* Interface: [KeyInfo](#regedit.KeyInfo)
-* Interface: [ChildKey](#regedit.ChildKey)
-* Interface: [ChildValue](#regedit.ChildValue)
+* Interface: [KeyInfo](#regeditkeyinfo)
+* Interface: [ChildKey](#regeditchildkey)
+* Interface: [ChildValue](#regeditchildvalue)
 
 ### Functions
 
@@ -242,8 +242,8 @@ declare interface ReadKeyResult {
 declare function openKey (key: InputKey, subKey?: string): KeyHandle;
 ```
 
-* Type alias: [InputKey](#regedit.InputKey)
-* Interface: [KeyHandle](#regedit.KeyHandle)
+* Type alias: [InputKey](#regeditinputkey)
+* Interface: [KeyHandle](#regeditkeyhandle)
 
 #### `regedit.closeKey`
 
@@ -253,7 +253,7 @@ declare function openKey (key: InputKey, subKey?: string): KeyHandle;
 declare function closeKey (key: KeyHandle): void;
 ```
 
-* Interface: [KeyHandle](#regedit.KeyHandle)
+* Interface: [KeyHandle](#regeditkeyhandle)
 
 #### `regedit.queryInfoKey`
 
@@ -263,8 +263,8 @@ declare function closeKey (key: KeyHandle): void;
 declare function queryInfoKey (key: InputKey): KeyInfo;
 ```
 
-* Type alias: [InputKey](#regedit.InputKey)
-* Interface: [KeyInfo](#regedit.KeyInfo)
+* Type alias: [InputKey](#regeditinputkey)
+* Interface: [KeyInfo](#regeditkeyinfo)
 
 #### `regedit.queryValue`
 
@@ -274,8 +274,8 @@ declare function queryInfoKey (key: InputKey): KeyInfo;
 declare function queryValue (key: InputKey, valueName?: string): ValueInfo;
 ```
 
-* Type alias: [InputKey](#regedit.InputKey)
-* Interface: [ValueInfo](#regedit.ValueInfo)
+* Type alias: [InputKey](#regeditinputkey)
+* Interface: [ValueInfo](#regeditvalueinfo)
 
 #### `regedit.enumKey`
 
@@ -285,8 +285,8 @@ declare function queryValue (key: InputKey, valueName?: string): ValueInfo;
 declare function enumKey (key: InputKey, index: number): ChildKey;
 ```
 
-* Type alias: [InputKey](#regedit.InputKey)
-* Interface: [ChildKey](#regedit.ChildKey)
+* Type alias: [InputKey](#regeditinputkey)
+* Interface: [ChildKey](#regeditchildkey)
 
 #### `regedit.enumValue`
 
@@ -296,8 +296,8 @@ declare function enumKey (key: InputKey, index: number): ChildKey;
 declare function enumValue (key: InputKey, index: number): ChildValue;
 ```
 
-* Type alias: [InputKey](#regedit.InputKey)
-* Interface: [ChildValue](#regedit.ChildValue)
+* Type alias: [InputKey](#regeditinputkey)
+* Interface: [ChildValue](#regeditchildvalue)
 
 #### `regedit.createKey`
 
@@ -307,8 +307,8 @@ declare function enumValue (key: InputKey, index: number): ChildValue;
 declare function createKey (key: InputKey, subKey: string, className?: string): CreateKeyResult;
 ```
 
-* Type alias: [InputKey](#regedit.InputKey)
-* Interface: [CreateKeyResult](#regedit.CreateKeyResult)
+* Type alias: [InputKey](#regeditinputkey)
+* Interface: [CreateKeyResult](#regeditcreatekeyresult)
 
 #### `regedit.deleteKey`
 
@@ -318,7 +318,7 @@ declare function createKey (key: InputKey, subKey: string, className?: string): 
 declare function deleteKey (key: InputKey, subKey?: string): void;
 ```
 
-* Type alias: [InputKey](#regedit.InputKey)
+* Type alias: [InputKey](#regeditinputkey)
 
 #### `regedit.setValue`
 
@@ -328,8 +328,8 @@ declare function deleteKey (key: InputKey, subKey?: string): void;
 declare function setValue (key: InputKey, valueName: string, data?: number | bigint | string | string[] | Buffer, type?: ValueTypes): void;
 ```
 
-* Type alias: [InputKey](#regedit.InputKey)
-* Interface: [ValueTypes](#regedit.ValueTypes)
+* Type alias: [InputKey](#regeditinputkey)
+* Interface: [ValueTypes](#regeditvaluetypes)
 
 #### `regedit.deleteValue`
 
@@ -339,7 +339,7 @@ declare function setValue (key: InputKey, valueName: string, data?: number | big
 declare function deleteValue (key: InputKey, valueName?: string): void;
 ```
 
-* Type alias: [InputKey](#regedit.InputKey)
+* Type alias: [InputKey](#regeditinputkey)
 
 #### `regedit.readKey`
 
@@ -349,8 +349,8 @@ Read a registry key and its child key/values.
 declare function readKey (key: InputKey, subKey?: string): ReadKeyResult;
 ```
 
-* Type alias: [InputKey](#regedit.InputKey)
-* Interface: [ReadKeyResult](#regedit.ReadKeyResult)
+* Type alias: [InputKey](#regeditinputkey)
+* Interface: [ReadKeyResult](#regeditreadkeyresult)
 
 #### `regedit.removeKey`
 
@@ -360,4 +360,4 @@ Remove a registry key recursively.
 declare function removeKey (key: InputKey, subKey?: string): void;
 ```
 
-* Type alias: [InputKey](#regedit.InputKey)
+* Type alias: [InputKey](#regeditinputkey)
